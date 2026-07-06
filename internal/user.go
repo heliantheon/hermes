@@ -11,14 +11,14 @@ import (
 	"golang.org/x/crypto/bcrypt"
 	"gorm.io/gorm"
 
-	"github.com/heliannuuthus/helios/hermes/config"
-	"github.com/heliannuuthus/helios/hermes/dto"
-	"github.com/heliannuuthus/helios/hermes/models"
-	cryptoutil "github.com/heliannuuthus/helios/pkg/crypto"
-	"github.com/heliannuuthus/helios/pkg/filter"
-	"github.com/heliannuuthus/helios/pkg/logger"
-	"github.com/heliannuuthus/helios/pkg/pagination"
-	"github.com/heliannuuthus/helios/pkg/patch"
+	"github.com/heliannuuthus/hermes/config"
+	"github.com/heliannuuthus/hermes/internal/dto"
+	"github.com/heliannuuthus/hermes/internal/models"
+	cryptoutil "github.com/heliannuuthus/pkg/crypto"
+	"github.com/heliannuuthus/pkg/filter"
+	"github.com/heliannuuthus/pkg/logger"
+	"github.com/heliannuuthus/pkg/pagination"
+	"github.com/heliannuuthus/pkg/patch"
 )
 
 // ==================== User CRUD ====================

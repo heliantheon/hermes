@@ -9,10 +9,10 @@ import (
 
 	"gorm.io/gorm"
 
-	"github.com/heliannuuthus/helios/hermes/config"
-	"github.com/heliannuuthus/helios/hermes/dto"
-	"github.com/heliannuuthus/helios/hermes/models"
-	cryptoutil "github.com/heliannuuthus/helios/pkg/crypto"
+	"github.com/heliannuuthus/hermes/config"
+	"github.com/heliannuuthus/hermes/internal/dto"
+	"github.com/heliannuuthus/hermes/internal/models"
+	cryptoutil "github.com/heliannuuthus/pkg/crypto"
 )
 
 // generateEncryptedKey 生成 48 字节 seed（16-byte salt + 32-byte key）并用数据库加密密钥加密

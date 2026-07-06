@@ -28,6 +28,8 @@ type DomainIDPConfig struct {
 	IDPType   string    `gorm:"column:idp_type;size:32;not null" json:"idp_type"`
 	Priority  int       `gorm:"column:priority;not null;default:0" json:"priority"`
 	Strategy  *string   `gorm:"column:strategy;size:256" json:"strategy,omitempty"`
+	Delegate  *string   `gorm:"column:delegate;size:256" json:"delegate,omitempty"`
+	Require   *string   `gorm:"column:require;size:256" json:"require,omitempty"`
 	TAppID    string    `gorm:"column:t_app_id;size:256;not null" json:"t_app_id"`
 	CreatedAt time.Time `gorm:"column:created_at;not null" json:"created_at"`
 	UpdatedAt time.Time `gorm:"column:updated_at;not null" json:"updated_at"`

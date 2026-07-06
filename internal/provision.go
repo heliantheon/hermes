@@ -8,13 +8,13 @@ import (
 	"github.com/go-json-experiment/json"
 	"gorm.io/gorm"
 
-	"github.com/heliannuuthus/helios/hermes/dto"
-	"github.com/heliannuuthus/helios/hermes/models"
-	"github.com/heliannuuthus/helios/hermes/validation"
-	"github.com/heliannuuthus/helios/pkg/filter"
-	"github.com/heliannuuthus/helios/pkg/helpers"
-	"github.com/heliannuuthus/helios/pkg/pagination"
-	"github.com/heliannuuthus/helios/pkg/patch"
+	"github.com/heliannuuthus/hermes/internal/dto"
+	"github.com/heliannuuthus/hermes/internal/models"
+	"github.com/heliannuuthus/hermes/internal/validation"
+	"github.com/heliannuuthus/pkg/filter"
+	"github.com/heliannuuthus/pkg/helpers"
+	"github.com/heliannuuthus/pkg/pagination"
+	"github.com/heliannuuthus/pkg/patch"
 )
 
 // ==================== Domain 相关 ====================

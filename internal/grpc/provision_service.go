@@ -6,12 +6,13 @@ import (
 	"google.golang.org/protobuf/types/known/emptypb"
 	"google.golang.org/protobuf/types/known/timestamppb"
 
-	hermesv1 "github.com/heliannuuthus/helios/gen/proto/hermes/v1"
-	"github.com/heliannuuthus/helios/hermes"
-	"github.com/heliannuuthus/helios/hermes/dto"
-	"github.com/heliannuuthus/helios/hermes/models"
-	"github.com/heliannuuthus/helios/pkg/pagination"
-	"github.com/heliannuuthus/helios/pkg/patch"
+	"github.com/heliannuuthus/hermes/config"
+	hermes "github.com/heliannuuthus/hermes/internal"
+	"github.com/heliannuuthus/hermes/internal/dto"
+	"github.com/heliannuuthus/hermes/internal/models"
+	"github.com/heliannuuthus/pkg/pagination"
+	"github.com/heliannuuthus/pkg/patch"
+	hermesv1 "github.com/heliannuuthus/proto/gen/proto/hermes/v1"
 )
 
 type provisionServiceServer struct {
@@ -388,24 +389,44 @@ func applicationToProto(a *models.Application) *hermesv1.Application {
 }
 
 func appIDPConfigToProto(cfg *models.ApplicationIDPConfig) *hermesv1.ApplicationIDPConfig {
+	delegate := cfg.Delegate
+	if delegate == nil {
+		delegate = config.GetIDPDefaultDelegate(cfg.Type)
+	}
+	require := cfg.Require
+	if require == nil {
+		require = config.GetIDPDefaultRequire(cfg.Type)
+	}
 	return &hermesv1.ApplicationIDPConfig{
 		Id:        safeUint32(cfg.ID),
 		AppId:     cfg.AppID,
 		Type:      cfg.Type,
 		Priority:  safeInt32(cfg.Priority),
 		Strategy:  cfg.Strategy,
+		Delegate:  delegate,
+		Require:   require,
 		CreatedAt: timestamppb.New(cfg.CreatedAt),
 		UpdatedAt: timestamppb.New(cfg.UpdatedAt),
 	}
 }
 
 func domainIDPConfigToProto(cfg *models.DomainIDPConfig) *hermesv1.DomainIDPConfig {
+	delegate := cfg.Delegate
+	if delegate == nil {
+		delegate = config.GetIDPDefaultDelegate(cfg.IDPType)
+	}
+	require := cfg.Require
+	if require == nil {
+		require = config.GetIDPDefaultRequire(cfg.IDPType)
+	}
 	return &hermesv1.DomainIDPConfig{
 		Id:        safeUint32(cfg.ID),
 		DomainId:  cfg.DomainID,
 		Type:      cfg.IDPType,
 		Priority:  safeInt32(cfg.Priority),
 		Strategy:  cfg.Strategy,
+		Delegate:  delegate,
+		Require:   require,
 		CreatedAt: timestamppb.New(cfg.CreatedAt),
 		UpdatedAt: timestamppb.New(cfg.UpdatedAt),
 	}

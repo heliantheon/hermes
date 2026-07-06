@@ -6,9 +6,9 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"github.com/heliannuuthus/helios/hermes/dto"
-	"github.com/heliannuuthus/helios/hermes/models"
-	"github.com/heliannuuthus/helios/pkg/pagination"
+	"github.com/heliannuuthus/hermes/internal/dto"
+	"github.com/heliannuuthus/hermes/internal/models"
+	"github.com/heliannuuthus/pkg/pagination"
 )
 
 // Handler 管理服务处理器

@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"time"
 
-	"github.com/heliannuuthus/helios/pkg/pagination"
+	"github.com/heliannuuthus/pkg/pagination"
 )
 
 // ListRequest 通用列表查询请求（游标分页），筛选条件通过 filter=col<op>val 传递

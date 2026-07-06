@@ -5,12 +5,12 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/heliannuuthus/helios/hermes/dto"
-	"github.com/heliannuuthus/helios/hermes/models"
-	"github.com/heliannuuthus/helios/pkg/filter"
-	"github.com/heliannuuthus/helios/pkg/logger"
-	"github.com/heliannuuthus/helios/pkg/pagination"
-	"github.com/heliannuuthus/helios/pkg/patch"
+	"github.com/heliannuuthus/hermes/internal/dto"
+	"github.com/heliannuuthus/hermes/internal/models"
+	"github.com/heliannuuthus/pkg/filter"
+	"github.com/heliannuuthus/pkg/logger"
+	"github.com/heliannuuthus/pkg/pagination"
+	"github.com/heliannuuthus/pkg/patch"
 )
 
 // ==================== ApplicationServiceRelation 相关 ====================

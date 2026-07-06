@@ -5,7 +5,7 @@ import (
 
 	"github.com/go-json-experiment/json"
 
-	"github.com/heliannuuthus/helios/pkg/logger"
+	"github.com/heliannuuthus/pkg/logger"
 )
 
 // CrossDomainID 底层约定：domain_id 为该值时表示跨域服务，可被多域共用。不在 API 响应中暴露，上层用请求的 domain_id 表示。

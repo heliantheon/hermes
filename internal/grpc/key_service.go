@@ -8,10 +8,10 @@ import (
 	"google.golang.org/protobuf/types/known/emptypb"
 	"google.golang.org/protobuf/types/known/timestamppb"
 
-	hermesv1 "github.com/heliannuuthus/helios/gen/proto/hermes/v1"
-	"github.com/heliannuuthus/helios/hermes"
-	"github.com/heliannuuthus/helios/hermes/dto"
-	"github.com/heliannuuthus/helios/hermes/models"
+	hermes "github.com/heliannuuthus/hermes/internal"
+	"github.com/heliannuuthus/hermes/internal/dto"
+	"github.com/heliannuuthus/hermes/internal/models"
+	hermesv1 "github.com/heliannuuthus/proto/gen/proto/hermes/v1"
 )
 
 type keyServiceServer struct {

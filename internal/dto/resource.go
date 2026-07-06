@@ -1,8 +1,8 @@
 package dto
 
 import (
-	"github.com/heliannuuthus/helios/hermes/models"
-	"github.com/heliannuuthus/helios/pkg/patch"
+	"github.com/heliannuuthus/hermes/internal/models"
+	"github.com/heliannuuthus/pkg/patch"
 )
 
 // ==================== Application-Service Relation ====================
