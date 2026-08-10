@@ -22,4 +22,5 @@ make run
 
 - Run all Go tests after model, query, or gRPC changes.
 - Keep SQL schema changes compatible with existing data or document the required migration.
+- Keep generated seed data and deployment keys out of this repository.
 - Regenerate clients in the Proto repository when a contract changes.
