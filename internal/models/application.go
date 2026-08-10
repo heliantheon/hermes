@@ -8,7 +8,7 @@ import (
 
 	"github.com/go-json-experiment/json"
 
-	"github.com/heliannuuthus/pkg/logger"
+	"github.com/heliannuuthus/common/logger"
 )
 
 // Application 应用（控制 id_token、refresh_token 有效期；access_token 由服务控制）

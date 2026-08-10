@@ -5,12 +5,15 @@ go 1.26
 require (
 	github.com/gin-gonic/gin v1.10.0
 	github.com/go-json-experiment/json v0.0.0-20260214004413-d219187c3433
-	github.com/heliannuuthus/pkg v0.0.0
-	github.com/heliannuuthus/proto v0.0.0
-	golang.org/x/crypto v0.47.0
+	github.com/heliannuuthus/proto v0.0.0-20260810151706-47dd86d80c98
 	google.golang.org/grpc v1.79.2
 	google.golang.org/protobuf v1.36.11
 	gorm.io/gorm v1.30.0
+)
+
+require (
+	github.com/heliannuuthus/aegis-go/service v0.0.2-0.20260810151700-2ab76612b78a // indirect
+	golang.org/x/crypto v0.47.0 // indirect
 )
 
 require (
@@ -30,6 +33,9 @@ require (
 	github.com/go-sql-driver/mysql v1.8.1 // indirect
 	github.com/go-viper/mapstructure/v2 v2.4.0 // indirect
 	github.com/goccy/go-json v0.10.2 // indirect
+	github.com/heliannuuthus/aegis-go/guard v0.0.2-0.20260810152503-0b75cc8e9df3
+	github.com/heliannuuthus/aegis-go/utilities v0.0.2-0.20260810152503-0b75cc8e9df3
+	github.com/heliannuuthus/common v0.0.0-20260810152613-bd9e82df33d1
 	github.com/jinzhu/inflection v1.0.0 // indirect
 	github.com/jinzhu/now v1.1.5 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
@@ -59,9 +65,4 @@ require (
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20251202230838-ff82c1b0f217 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 	gorm.io/driver/mysql v1.6.0 // indirect
-)
-
-replace (
-	github.com/heliannuuthus/pkg => ../pkg
-	github.com/heliannuuthus/proto => ../proto
 )

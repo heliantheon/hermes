@@ -1,0 +1,24 @@
+# Hermes
+
+Hermes owns identity, application, service, domain, and relationship data for Helios. It exposes HTTP and gRPC APIs used by Aegis and other services.
+
+## Run locally
+
+Hermes needs MySQL. Copy the example configuration, set the database encryption key and Aegis service key, then start the service:
+
+```bash
+cp example.toml config.toml
+make run
+```
+
+The schema and development seed data are under [`sql/`](sql/).
+
+## Development
+
+```bash
+make test
+make lint
+make build
+```
+
+Shared gRPC contracts are maintained in [`proto`](https://github.com/heliannuuthus/proto).
