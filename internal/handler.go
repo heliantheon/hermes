@@ -8,10 +8,10 @@ import (
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 
+	"github.com/heliannuuthus/common/logger"
+	"github.com/heliannuuthus/common/pagination"
 	"github.com/heliannuuthus/hermes/internal/dto"
 	"github.com/heliannuuthus/hermes/internal/models"
-	"github.com/heliannuuthus/pkg/logger"
-	"github.com/heliannuuthus/pkg/pagination"
 )
 
 // Handler 管理服务处理器

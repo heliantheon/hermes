@@ -8,14 +8,14 @@ import (
 	"github.com/gin-gonic/gin"
 	"google.golang.org/grpc"
 
+	"github.com/heliannuuthus/aegis-go/guard"
+	reqr "github.com/heliannuuthus/aegis-go/guard/requirement"
+	"github.com/heliannuuthus/aegis-go/utilities/relation"
+	"github.com/heliannuuthus/common/config"
+	"github.com/heliannuuthus/common/logger"
 	hermesconfig "github.com/heliannuuthus/hermes/config"
 	hermes "github.com/heliannuuthus/hermes/internal"
 	hermesgrpc "github.com/heliannuuthus/hermes/internal/grpc"
-	"github.com/heliannuuthus/pkg/aegis/guard"
-	reqr "github.com/heliannuuthus/pkg/aegis/guard/requirement"
-	"github.com/heliannuuthus/pkg/aegis/utilities/relation"
-	"github.com/heliannuuthus/pkg/config"
-	"github.com/heliannuuthus/pkg/logger"
 	hermesv1 "github.com/heliannuuthus/proto/gen/proto/hermes/v1"
 )
 

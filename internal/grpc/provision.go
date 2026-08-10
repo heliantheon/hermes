@@ -6,12 +6,12 @@ import (
 	"google.golang.org/protobuf/types/known/emptypb"
 	"google.golang.org/protobuf/types/known/timestamppb"
 
+	"github.com/heliannuuthus/common/pagination"
+	"github.com/heliannuuthus/common/patch"
 	"github.com/heliannuuthus/hermes/config"
 	hermes "github.com/heliannuuthus/hermes/internal"
 	"github.com/heliannuuthus/hermes/internal/dto"
 	"github.com/heliannuuthus/hermes/internal/models"
-	"github.com/heliannuuthus/pkg/pagination"
-	"github.com/heliannuuthus/pkg/patch"
 	hermesv1 "github.com/heliannuuthus/proto/gen/proto/hermes/v1"
 )
 
