@@ -5,9 +5,9 @@ This repository owns Helios identity persistence, provisioning, and relationship
 ## Boundaries
 
 - Authentication flows and token issuance belong to Aegis.
-- Shared gRPC contracts belong to `heliannuuthus/proto`.
-- Reusable guards belong to `heliannuuthus/aegis-go`.
-- Domain-independent infrastructure belongs to `heliannuuthus/common`.
+- Shared gRPC contracts belong to `heliantheon/proto`.
+- Reusable guards belong to `heliantheon/aegis-go`.
+- Domain-independent infrastructure belongs to `heliantheon/common`.
 
 ## Commands
 

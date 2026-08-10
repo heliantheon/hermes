@@ -21,4 +21,4 @@ make lint
 make build
 ```
 
-Shared gRPC contracts are maintained in [`proto`](https://github.com/heliannuuthus/proto).
+Shared gRPC contracts are maintained in [`proto`](https://github.com/heliantheon/proto).

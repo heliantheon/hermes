@@ -5,7 +5,7 @@ import (
 
 	"gorm.io/gorm"
 
-	"github.com/heliannuuthus/hermes/config"
+	"github.com/heliantheon/hermes/config"
 )
 
 // Services 聚合 Hermes 各领域服务。

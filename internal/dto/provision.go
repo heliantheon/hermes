@@ -1,8 +1,8 @@
 package dto
 
 import (
-	"github.com/heliannuuthus/common/patch"
-	"github.com/heliannuuthus/hermes/internal/models"
+	"github.com/heliantheon/common/patch"
+	"github.com/heliantheon/hermes/internal/models"
 )
 
 // ==================== Domain ====================
