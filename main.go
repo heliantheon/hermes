@@ -99,7 +99,7 @@ func startHTTP(services *hermes.Services) {
 		logger.Fatalf("初始化 Hermes 鉴权中间件失败: %v", err)
 	}
 	adminRelation := hermesGuard.Require(reqr.Relation(relation.Qualify("admin", "service:"+hermesAud)))
-	api := r.Group("/hermes")
+	api := r.Group("/api")
 	api.Use(hermesGuard.Require())
 	{
 		domains := api.Group("/domains")

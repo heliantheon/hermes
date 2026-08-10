@@ -34,7 +34,7 @@ func NewHandler(services *Services) *Handler {
 
 // ==================== Domain 相关 ====================
 
-// CreateDomain POST /hermes/domains
+// CreateDomain POST /api/domains
 func (h *Handler) CreateDomain(c *gin.Context) {
 	var req dto.DomainCreateRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
@@ -62,7 +62,7 @@ func (h *Handler) CreateDomain(c *gin.Context) {
 	})
 }
 
-// GetDomain GET /hermes/domains/:domain_id
+// GetDomain GET /api/domains/:domain_id
 func (h *Handler) GetDomain(c *gin.Context) {
 	domainID := c.Param("domain_id")
 	domain, err := h.provision.GetDomain(c.Request.Context(), domainID)
@@ -80,7 +80,7 @@ func (h *Handler) GetDomain(c *gin.Context) {
 
 // ==================== IDP Secret 相关 ====================
 
-// ListIDPKeys GET /hermes/idp-keys
+// ListIDPKeys GET /api/idp-keys
 func (h *Handler) ListIDPKeys(c *gin.Context) {
 	secrets, err := h.key.GetIDPKeys(c.Request.Context())
 	if err != nil {
@@ -94,7 +94,7 @@ func (h *Handler) ListIDPKeys(c *gin.Context) {
 	c.JSON(http.StatusOK, resp)
 }
 
-// GetIDPKey GET /hermes/idp-keys/:idp_type/:t_app_id
+// GetIDPKey GET /api/idp-keys/:idp_type/:t_app_id
 func (h *Handler) GetIDPKey(c *gin.Context) {
 	idpType := c.Param("idp_type")
 	tAppID := c.Param("t_app_id")
@@ -106,7 +106,7 @@ func (h *Handler) GetIDPKey(c *gin.Context) {
 	c.JSON(http.StatusOK, dto.NewIDPKeyResponse(secret))
 }
 
-// CreateIDPKey POST /hermes/idp-keys
+// CreateIDPKey POST /api/idp-keys
 func (h *Handler) CreateIDPKey(c *gin.Context) {
 	var req dto.IDPKeyCreateRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
@@ -121,7 +121,7 @@ func (h *Handler) CreateIDPKey(c *gin.Context) {
 	c.JSON(http.StatusOK, dto.NewIDPKeyResponse(secret))
 }
 
-// UpdateIDPKey PATCH /hermes/idp-keys/:idp_type/:t_app_id
+// UpdateIDPKey PATCH /api/idp-keys/:idp_type/:t_app_id
 func (h *Handler) UpdateIDPKey(c *gin.Context) {
 	idpType := c.Param("idp_type")
 	tAppID := c.Param("t_app_id")
@@ -137,7 +137,7 @@ func (h *Handler) UpdateIDPKey(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"message": "更新成功"})
 }
 
-// DeleteIDPKey DELETE /hermes/idp-keys/:idp_type/:t_app_id
+// DeleteIDPKey DELETE /api/idp-keys/:idp_type/:t_app_id
 func (h *Handler) DeleteIDPKey(c *gin.Context) {
 	idpType := c.Param("idp_type")
 	tAppID := c.Param("t_app_id")
@@ -150,7 +150,7 @@ func (h *Handler) DeleteIDPKey(c *gin.Context) {
 
 // ==================== Domain IDP Config 相关 ====================
 
-// ListDomainIDPConfigs GET /hermes/domains/:domain_id/idp-configs
+// ListDomainIDPConfigs GET /api/domains/:domain_id/idp-configs
 func (h *Handler) ListDomainIDPConfigs(c *gin.Context) {
 	domainID := c.Param("domain_id")
 	configs, err := h.provision.ListDomainIDPConfigs(c.Request.Context(), domainID)
@@ -165,7 +165,7 @@ func (h *Handler) ListDomainIDPConfigs(c *gin.Context) {
 	c.JSON(http.StatusOK, resp)
 }
 
-// GetDomainIDPConfig GET /hermes/domains/:domain_id/idp-configs/:idp_type
+// GetDomainIDPConfig GET /api/domains/:domain_id/idp-configs/:idp_type
 func (h *Handler) GetDomainIDPConfig(c *gin.Context) {
 	domainID := c.Param("domain_id")
 	idpType := c.Param("idp_type")
@@ -177,7 +177,7 @@ func (h *Handler) GetDomainIDPConfig(c *gin.Context) {
 	c.JSON(http.StatusOK, dto.NewDomainIDPConfigResponse(cfg))
 }
 
-// CreateDomainIDPConfig POST /hermes/domains/:domain_id/idp-configs
+// CreateDomainIDPConfig POST /api/domains/:domain_id/idp-configs
 func (h *Handler) CreateDomainIDPConfig(c *gin.Context) {
 	domainID := c.Param("domain_id")
 	var req dto.DomainIDPConfigCreateRequest
@@ -193,7 +193,7 @@ func (h *Handler) CreateDomainIDPConfig(c *gin.Context) {
 	c.JSON(http.StatusOK, dto.NewDomainIDPConfigResponse(cfg))
 }
 
-// UpdateDomainIDPConfig PATCH /hermes/domains/:domain_id/idp-configs/:idp_type
+// UpdateDomainIDPConfig PATCH /api/domains/:domain_id/idp-configs/:idp_type
 func (h *Handler) UpdateDomainIDPConfig(c *gin.Context) {
 	domainID := c.Param("domain_id")
 	idpType := c.Param("idp_type")
@@ -209,7 +209,7 @@ func (h *Handler) UpdateDomainIDPConfig(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"message": "更新成功"})
 }
 
-// DeleteDomainIDPConfig DELETE /hermes/domains/:domain_id/idp-configs/:idp_type
+// DeleteDomainIDPConfig DELETE /api/domains/:domain_id/idp-configs/:idp_type
 func (h *Handler) DeleteDomainIDPConfig(c *gin.Context) {
 	domainID := c.Param("domain_id")
 	idpType := c.Param("idp_type")
@@ -220,7 +220,7 @@ func (h *Handler) DeleteDomainIDPConfig(c *gin.Context) {
 	c.Status(http.StatusNoContent)
 }
 
-// UpdateDomain PATCH /hermes/domains/:domain_id（仅 name、description 可编辑）
+// UpdateDomain PATCH /api/domains/:domain_id（仅 name、description 可编辑）
 func (h *Handler) UpdateDomain(c *gin.Context) {
 	domainID := c.Param("domain_id")
 	var req dto.DomainUpdateRequest
@@ -249,7 +249,7 @@ func (h *Handler) UpdateDomain(c *gin.Context) {
 	})
 }
 
-// ListDomains GET /hermes/domains
+// ListDomains GET /api/domains
 func (h *Handler) ListDomains(c *gin.Context) {
 	domains, err := h.provision.ListDomains(c.Request.Context())
 	if err != nil {
@@ -269,7 +269,7 @@ func (h *Handler) ListDomains(c *gin.Context) {
 
 // ==================== Service 相关（均挂载在 domains/:domain_id/services 下） ====================
 
-// ListServices GET /hermes/domains/:domain_id/services
+// ListServices GET /api/domains/:domain_id/services
 func (h *Handler) ListServices(c *gin.Context) {
 	domainID := c.Param("domain_id")
 	var req dto.ListRequest
@@ -289,7 +289,7 @@ func (h *Handler) ListServices(c *gin.Context) {
 	}))
 }
 
-// GetService GET /hermes/domains/:domain_id/services/:service_id
+// GetService GET /api/domains/:domain_id/services/:service_id
 func (h *Handler) GetService(c *gin.Context) {
 	domainID := c.Param("domain_id")
 	serviceID := c.Param("service_id")
@@ -305,7 +305,7 @@ func (h *Handler) GetService(c *gin.Context) {
 	c.JSON(http.StatusOK, dto.NewServiceResponse(service, domainID))
 }
 
-// CreateService POST /hermes/domains/:domain_id/services
+// CreateService POST /api/domains/:domain_id/services
 func (h *Handler) CreateService(c *gin.Context) {
 	domainID := c.Param("domain_id")
 	var req dto.ServiceCreateRequest
@@ -322,7 +322,7 @@ func (h *Handler) CreateService(c *gin.Context) {
 	c.JSON(http.StatusOK, dto.NewServiceResponse(service, domainID))
 }
 
-// UpdateService PATCH /hermes/domains/:domain_id/services/:service_id
+// UpdateService PATCH /api/domains/:domain_id/services/:service_id
 func (h *Handler) UpdateService(c *gin.Context) {
 	domainID := c.Param("domain_id")
 	serviceID := c.Param("service_id")
@@ -347,7 +347,7 @@ func (h *Handler) UpdateService(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"message": "更新成功"})
 }
 
-// DeleteService DELETE /hermes/domains/:domain_id/services/:service_id
+// DeleteService DELETE /api/domains/:domain_id/services/:service_id
 func (h *Handler) DeleteService(c *gin.Context) {
 	domainID := c.Param("domain_id")
 	serviceID := c.Param("service_id")
@@ -367,7 +367,7 @@ func (h *Handler) DeleteService(c *gin.Context) {
 	c.Status(http.StatusNoContent)
 }
 
-// GetServiceApplicationRelations GET /hermes/domains/:domain_id/services/:service_id/applications
+// GetServiceApplicationRelations GET /api/domains/:domain_id/services/:service_id/applications
 func (h *Handler) GetServiceApplicationRelations(c *gin.Context) {
 	domainID := c.Param("domain_id")
 	serviceID := c.Param("service_id")
@@ -397,7 +397,7 @@ func (h *Handler) GetServiceApplicationRelations(c *gin.Context) {
 	c.JSON(http.StatusOK, resp)
 }
 
-// GetServiceAppRelations GET /hermes/domains/:domain_id/services/:service_id/applications/:app_id/relations
+// GetServiceAppRelations GET /api/domains/:domain_id/services/:service_id/applications/:app_id/relations
 func (h *Handler) GetServiceAppRelations(c *gin.Context) {
 	domainID := c.Param("domain_id")
 	serviceID := c.Param("service_id")
@@ -419,7 +419,7 @@ func (h *Handler) GetServiceAppRelations(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"relations": rels})
 }
 
-// SetServiceAppRelations PUT /hermes/domains/:domain_id/services/:service_id/applications/:app_id/relations
+// SetServiceAppRelations PUT /api/domains/:domain_id/services/:service_id/applications/:app_id/relations
 func (h *Handler) SetServiceAppRelations(c *gin.Context) {
 	domainID := c.Param("domain_id")
 	serviceID := c.Param("service_id")
@@ -449,7 +449,7 @@ func (h *Handler) SetServiceAppRelations(c *gin.Context) {
 
 // ==================== Application 相关（均挂载在 domains/:domain_id/applications 下） ====================
 
-// ListApplications GET /hermes/domains/:domain_id/applications
+// ListApplications GET /api/domains/:domain_id/applications
 func (h *Handler) ListApplications(c *gin.Context) {
 	domainID := c.Param("domain_id")
 	var req dto.ListRequest
@@ -469,7 +469,7 @@ func (h *Handler) ListApplications(c *gin.Context) {
 	}))
 }
 
-// GetApplication GET /hermes/domains/:domain_id/applications/:app_id
+// GetApplication GET /api/domains/:domain_id/applications/:app_id
 func (h *Handler) GetApplication(c *gin.Context) {
 	domainID := c.Param("domain_id")
 	appID := c.Param("app_id")
@@ -485,7 +485,7 @@ func (h *Handler) GetApplication(c *gin.Context) {
 	c.JSON(http.StatusOK, dto.NewApplicationResponse(app))
 }
 
-// CreateApplication POST /hermes/domains/:domain_id/applications
+// CreateApplication POST /api/domains/:domain_id/applications
 func (h *Handler) CreateApplication(c *gin.Context) {
 	domainID := c.Param("domain_id")
 	var req dto.ApplicationCreateRequest
@@ -502,7 +502,7 @@ func (h *Handler) CreateApplication(c *gin.Context) {
 	c.JSON(http.StatusOK, dto.NewApplicationResponse(app))
 }
 
-// UpdateApplication PATCH /hermes/domains/:domain_id/applications/:app_id
+// UpdateApplication PATCH /api/domains/:domain_id/applications/:app_id
 func (h *Handler) UpdateApplication(c *gin.Context) {
 	domainID := c.Param("domain_id")
 	appID := c.Param("app_id")
@@ -527,7 +527,7 @@ func (h *Handler) UpdateApplication(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"message": "更新成功"})
 }
 
-// ListApplicationIDPConfigs GET /hermes/domains/:domain_id/applications/:app_id/idp-configs
+// ListApplicationIDPConfigs GET /api/domains/:domain_id/applications/:app_id/idp-configs
 func (h *Handler) ListApplicationIDPConfigs(c *gin.Context) {
 	domainID := c.Param("domain_id")
 	appID := c.Param("app_id")
@@ -560,7 +560,7 @@ func (h *Handler) ListApplicationIDPConfigs(c *gin.Context) {
 	c.JSON(http.StatusOK, resp)
 }
 
-// CreateApplicationIDPConfig POST /hermes/domains/:domain_id/applications/:app_id/idp-configs（仅允许域下 IDP）
+// CreateApplicationIDPConfig POST /api/domains/:domain_id/applications/:app_id/idp-configs（仅允许域下 IDP）
 func (h *Handler) CreateApplicationIDPConfig(c *gin.Context) {
 	domainID := c.Param("domain_id")
 	appID := c.Param("app_id")
@@ -594,7 +594,7 @@ func (h *Handler) CreateApplicationIDPConfig(c *gin.Context) {
 	})
 }
 
-// UpdateApplicationIDPConfig PATCH /hermes/domains/:domain_id/applications/:app_id/idp-configs/:idp_type
+// UpdateApplicationIDPConfig PATCH /api/domains/:domain_id/applications/:app_id/idp-configs/:idp_type
 func (h *Handler) UpdateApplicationIDPConfig(c *gin.Context) {
 	domainID := c.Param("domain_id")
 	appID := c.Param("app_id")
@@ -620,7 +620,7 @@ func (h *Handler) UpdateApplicationIDPConfig(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"message": "更新成功"})
 }
 
-// DeleteApplicationIDPConfig DELETE /hermes/domains/:domain_id/applications/:app_id/idp-configs/:idp_type
+// DeleteApplicationIDPConfig DELETE /api/domains/:domain_id/applications/:app_id/idp-configs/:idp_type
 func (h *Handler) DeleteApplicationIDPConfig(c *gin.Context) {
 	domainID := c.Param("domain_id")
 	appID := c.Param("app_id")
@@ -641,7 +641,7 @@ func (h *Handler) DeleteApplicationIDPConfig(c *gin.Context) {
 	c.Status(http.StatusNoContent)
 }
 
-// ListApplicationServiceRelations GET /hermes/domains/:domain_id/applications/:app_id/relations
+// ListApplicationServiceRelations GET /api/domains/:domain_id/applications/:app_id/relations
 func (h *Handler) ListApplicationServiceRelations(c *gin.Context) {
 	domainID := c.Param("domain_id")
 	appID := c.Param("app_id")
@@ -671,7 +671,7 @@ func (h *Handler) ListApplicationServiceRelations(c *gin.Context) {
 	c.JSON(http.StatusOK, resp)
 }
 
-// DeleteDomain DELETE /hermes/domains/:domain_id
+// DeleteDomain DELETE /api/domains/:domain_id
 func (h *Handler) DeleteDomain(c *gin.Context) {
 	domainID := c.Param("domain_id")
 	if err := h.provision.DeleteDomain(c.Request.Context(), domainID); err != nil {
@@ -681,7 +681,7 @@ func (h *Handler) DeleteDomain(c *gin.Context) {
 	c.Status(http.StatusNoContent)
 }
 
-// DeleteApplication DELETE /hermes/domains/:domain_id/applications/:app_id
+// DeleteApplication DELETE /api/domains/:domain_id/applications/:app_id
 func (h *Handler) DeleteApplication(c *gin.Context) {
 	domainID := c.Param("domain_id")
 	appID := c.Param("app_id")
@@ -701,7 +701,7 @@ func (h *Handler) DeleteApplication(c *gin.Context) {
 	c.Status(http.StatusNoContent)
 }
 
-// DeleteGroup DELETE /hermes/groups/:group_id
+// DeleteGroup DELETE /api/groups/:group_id
 func (h *Handler) DeleteGroup(c *gin.Context) {
 	groupID := c.Param("group_id")
 	if err := h.user.DeleteGroup(c.Request.Context(), groupID); err != nil {
@@ -713,7 +713,7 @@ func (h *Handler) DeleteGroup(c *gin.Context) {
 
 // ==================== Service Challenge Setting 相关 ====================
 
-// ListServiceChallengeSettings GET /hermes/domains/:domain_id/services/:service_id/challenge-settings
+// ListServiceChallengeSettings GET /api/domains/:domain_id/services/:service_id/challenge-settings
 func (h *Handler) ListServiceChallengeSettings(c *gin.Context) {
 	serviceID := c.Param("service_id")
 	settings, err := h.provision.ListServiceChallengeSettings(c.Request.Context(), serviceID)
@@ -728,7 +728,7 @@ func (h *Handler) ListServiceChallengeSettings(c *gin.Context) {
 	c.JSON(http.StatusOK, resp)
 }
 
-// CreateServiceChallengeSetting POST /hermes/domains/:domain_id/services/:service_id/challenge-settings
+// CreateServiceChallengeSetting POST /api/domains/:domain_id/services/:service_id/challenge-settings
 func (h *Handler) CreateServiceChallengeSetting(c *gin.Context) {
 	serviceID := c.Param("service_id")
 	var req dto.ServiceChallengeSettingCreateRequest
@@ -744,7 +744,7 @@ func (h *Handler) CreateServiceChallengeSetting(c *gin.Context) {
 	c.JSON(http.StatusOK, dto.NewServiceChallengeSettingResponse(setting))
 }
 
-// UpdateServiceChallengeSetting PATCH /hermes/domains/:domain_id/services/:service_id/challenge-settings/:type
+// UpdateServiceChallengeSetting PATCH /api/domains/:domain_id/services/:service_id/challenge-settings/:type
 func (h *Handler) UpdateServiceChallengeSetting(c *gin.Context) {
 	serviceID := c.Param("service_id")
 	challengeType := c.Param("type")
@@ -760,7 +760,7 @@ func (h *Handler) UpdateServiceChallengeSetting(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"message": "更新成功"})
 }
 
-// DeleteServiceChallengeSetting DELETE /hermes/domains/:domain_id/services/:service_id/challenge-settings/:type
+// DeleteServiceChallengeSetting DELETE /api/domains/:domain_id/services/:service_id/challenge-settings/:type
 func (h *Handler) DeleteServiceChallengeSetting(c *gin.Context) {
 	serviceID := c.Param("service_id")
 	challengeType := c.Param("type")
@@ -773,7 +773,7 @@ func (h *Handler) DeleteServiceChallengeSetting(c *gin.Context) {
 
 // ==================== Relationship 相关 ====================
 
-// CreateRelationship POST /hermes/relationships
+// CreateRelationship POST /api/relationships
 func (h *Handler) CreateRelationship(c *gin.Context) {
 	var req dto.RelationshipCreateRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
@@ -790,7 +790,7 @@ func (h *Handler) CreateRelationship(c *gin.Context) {
 	c.JSON(http.StatusOK, dto.NewRelationshipResponse(rel))
 }
 
-// DeleteRelationship DELETE /hermes/relationships
+// DeleteRelationship DELETE /api/relationships
 func (h *Handler) DeleteRelationship(c *gin.Context) {
 	var req dto.RelationshipDeleteRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
@@ -806,7 +806,7 @@ func (h *Handler) DeleteRelationship(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"message": "删除成功"})
 }
 
-// ListRelationships GET /hermes/relationships
+// ListRelationships GET /api/relationships
 func (h *Handler) ListRelationships(c *gin.Context) {
 	var req dto.ListRequest
 	if err := c.ShouldBindQuery(&req); err != nil {
@@ -825,7 +825,7 @@ func (h *Handler) ListRelationships(c *gin.Context) {
 	}))
 }
 
-// UpdateRelationship PATCH /hermes/relationships
+// UpdateRelationship PATCH /api/relationships
 func (h *Handler) UpdateRelationship(c *gin.Context) {
 	var req dto.RelationshipUpdateRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
@@ -844,7 +844,7 @@ func (h *Handler) UpdateRelationship(c *gin.Context) {
 
 // ==================== App Service Relationship 相关（RESTful 风格）====================
 
-// ListAppServiceRelationships GET /hermes/applications/:app_id/services/:service_id/relationships
+// ListAppServiceRelationships GET /api/applications/:app_id/services/:service_id/relationships
 func (h *Handler) ListAppServiceRelationships(c *gin.Context) {
 	appID := c.Param("app_id")
 	serviceID := c.Param("service_id")
@@ -866,7 +866,7 @@ func (h *Handler) ListAppServiceRelationships(c *gin.Context) {
 	}))
 }
 
-// CreateAppServiceRelationship POST /hermes/applications/:app_id/services/:service_id/relationships
+// CreateAppServiceRelationship POST /api/applications/:app_id/services/:service_id/relationships
 func (h *Handler) CreateAppServiceRelationship(c *gin.Context) {
 	appID := c.Param("app_id")
 	serviceID := c.Param("service_id")
@@ -886,7 +886,7 @@ func (h *Handler) CreateAppServiceRelationship(c *gin.Context) {
 	c.JSON(http.StatusCreated, dto.NewRelationshipResponse(rel))
 }
 
-// UpdateAppServiceRelationship PATCH /hermes/applications/:app_id/services/:service_id/relationships/:relationship_id
+// UpdateAppServiceRelationship PATCH /api/applications/:app_id/services/:service_id/relationships/:relationship_id
 func (h *Handler) UpdateAppServiceRelationship(c *gin.Context) {
 	appID := c.Param("app_id")
 	serviceID := c.Param("service_id")
@@ -913,7 +913,7 @@ func (h *Handler) UpdateAppServiceRelationship(c *gin.Context) {
 	c.JSON(http.StatusOK, dto.NewRelationshipResponse(rel))
 }
 
-// DeleteAppServiceRelationship DELETE /hermes/applications/:app_id/services/:service_id/relationships/:relationship_id
+// DeleteAppServiceRelationship DELETE /api/applications/:app_id/services/:service_id/relationships/:relationship_id
 func (h *Handler) DeleteAppServiceRelationship(c *gin.Context) {
 	appID := c.Param("app_id")
 	serviceID := c.Param("service_id")
@@ -935,7 +935,7 @@ func (h *Handler) DeleteAppServiceRelationship(c *gin.Context) {
 
 // ==================== Group 相关 ====================
 
-// CreateGroup POST /hermes/groups
+// CreateGroup POST /api/groups
 func (h *Handler) CreateGroup(c *gin.Context) {
 	var req dto.GroupCreateRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
@@ -952,7 +952,7 @@ func (h *Handler) CreateGroup(c *gin.Context) {
 	c.JSON(http.StatusOK, dto.NewGroupResponse(group))
 }
 
-// GetGroup GET /hermes/groups/:group_id
+// GetGroup GET /api/groups/:group_id
 func (h *Handler) GetGroup(c *gin.Context) {
 	groupID := c.Param("group_id")
 	group, err := h.user.GetGroup(c.Request.Context(), groupID)
@@ -964,7 +964,7 @@ func (h *Handler) GetGroup(c *gin.Context) {
 	c.JSON(http.StatusOK, dto.NewGroupResponse(group))
 }
 
-// ListGroups GET /hermes/groups
+// ListGroups GET /api/groups
 func (h *Handler) ListGroups(c *gin.Context) {
 	var req dto.ListRequest
 	if err := c.ShouldBindQuery(&req); err != nil {
@@ -983,7 +983,7 @@ func (h *Handler) ListGroups(c *gin.Context) {
 	}))
 }
 
-// UpdateGroup PATCH /hermes/groups/:group_id
+// UpdateGroup PATCH /api/groups/:group_id
 func (h *Handler) UpdateGroup(c *gin.Context) {
 	groupID := c.Param("group_id")
 	var req dto.GroupUpdateRequest
@@ -1000,7 +1000,7 @@ func (h *Handler) UpdateGroup(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"message": "更新成功"})
 }
 
-// SetGroupMembers POST /hermes/groups/:group_id/members
+// SetGroupMembers POST /api/groups/:group_id/members
 func (h *Handler) SetGroupMembers(c *gin.Context) {
 	groupID := c.Param("group_id")
 	var req dto.GroupMemberRequest
@@ -1018,7 +1018,7 @@ func (h *Handler) SetGroupMembers(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"message": "设置成功"})
 }
 
-// GetGroupMembers GET /hermes/groups/:group_id/members
+// GetGroupMembers GET /api/groups/:group_id/members
 func (h *Handler) GetGroupMembers(c *gin.Context) {
 	groupID := c.Param("group_id")
 	members, err := h.user.GetGroupMembers(c.Request.Context(), groupID)
