@@ -5,7 +5,7 @@ import (
 
 	"github.com/go-json-experiment/json"
 
-	"github.com/heliannuuthus/common/logger"
+	"github.com/heliantheon/common/logger"
 )
 
 // InheritedDomainID 表示服务的有效域由当前请求上下文继承，不在 API 响应中暴露。

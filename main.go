@@ -8,15 +8,15 @@ import (
 	"github.com/gin-gonic/gin"
 	"google.golang.org/grpc"
 
-	"github.com/heliannuuthus/aegis-go/guard"
-	reqr "github.com/heliannuuthus/aegis-go/guard/requirement"
-	"github.com/heliannuuthus/aegis-go/utilities/relation"
-	"github.com/heliannuuthus/common/config"
-	"github.com/heliannuuthus/common/logger"
-	hermesconfig "github.com/heliannuuthus/hermes/config"
-	hermes "github.com/heliannuuthus/hermes/internal"
-	hermesgrpc "github.com/heliannuuthus/hermes/internal/grpc"
-	hermesv1 "github.com/heliannuuthus/proto/gen/proto/hermes/v1"
+	"github.com/heliantheon/aegis-go/guard"
+	reqr "github.com/heliantheon/aegis-go/guard/requirement"
+	"github.com/heliantheon/aegis-go/utilities/relation"
+	"github.com/heliantheon/common/config"
+	"github.com/heliantheon/common/logger"
+	hermesconfig "github.com/heliantheon/hermes/config"
+	hermes "github.com/heliantheon/hermes/internal"
+	hermesgrpc "github.com/heliantheon/hermes/internal/grpc"
+	hermesv1 "github.com/heliantheon/proto/gen/proto/hermes/v1"
 )
 
 func main() {
