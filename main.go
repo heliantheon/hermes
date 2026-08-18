@@ -16,7 +16,7 @@ import (
 	hermesconfig "github.com/heliantheon/hermes/config"
 	hermes "github.com/heliantheon/hermes/internal"
 	hermesgrpc "github.com/heliantheon/hermes/internal/grpc"
-	hermesv1 "github.com/heliantheon/proto/gen/proto/hermes/v1"
+	hermesv1 "github.com/heliantheon/hermes/internal/grpc/v1"
 )
 
 func main() {
