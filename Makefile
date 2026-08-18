@@ -1,6 +1,6 @@
 BINARY := build/hermes
 GOLANGCI_LINT ?= golangci-lint
-PROTO_BREAKING_AGAINST ?= https://github.com/heliantheon/hermes.git#tag=schema/v1.0.0,subdir=proto
+PROTO_BREAKING_AGAINST ?= https://github.com/heliantheon/hermes.git\#tag=schema/v1.0.0,subdir=proto
 
 .PHONY: build run test lint proto-lint proto-breaking generate check-generate fmt tidy clean
 
