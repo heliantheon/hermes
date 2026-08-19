@@ -586,7 +586,7 @@ func (s *ProvisionService) UpdateApplicationIDPConfig(ctx context.Context, appID
 		return nil
 	}
 	result := s.db.WithContext(ctx).Model(&models.ApplicationIDPConfig{}).
-		Where("app_id = ? AND `type` = ?", appID, idpType).Updates(updates)
+		Where("app_id = ? AND \"type\" = ?", appID, idpType).Updates(updates)
 	if result.Error != nil {
 		return fmt.Errorf("更新应用 IDP 配置失败: %w", result.Error)
 	}
@@ -598,7 +598,7 @@ func (s *ProvisionService) UpdateApplicationIDPConfig(ctx context.Context, appID
 
 // DeleteApplicationIDPConfig 删除应用 IDP 配置
 func (s *ProvisionService) DeleteApplicationIDPConfig(ctx context.Context, appID, idpType string) error {
-	result := s.db.WithContext(ctx).Where("app_id = ? AND `type` = ?", appID, idpType).Delete(&models.ApplicationIDPConfig{})
+	result := s.db.WithContext(ctx).Where("app_id = ? AND \"type\" = ?", appID, idpType).Delete(&models.ApplicationIDPConfig{})
 	if result.Error != nil {
 		return fmt.Errorf("删除应用 IDP 配置失败: %w", result.Error)
 	}
@@ -614,7 +614,7 @@ func (s *ProvisionService) DeleteApplicationIDPConfig(ctx context.Context, appID
 func (s *ProvisionService) GetServiceChallengeSetting(ctx context.Context, serviceID, challengeType string) (*models.ServiceChallengeSetting, error) {
 	var cfg models.ServiceChallengeSetting
 	if err := s.db.WithContext(ctx).
-		Where("service_id = ? AND `type` = ?", serviceID, challengeType).
+		Where("service_id = ? AND \"type\" = ?", serviceID, challengeType).
 		First(&cfg).Error; err != nil {
 		return nil, fmt.Errorf("获取 Challenge 配置失败: %w", err)
 	}
@@ -666,7 +666,7 @@ func (s *ProvisionService) UpdateServiceChallengeSetting(ctx context.Context, se
 		return nil
 	}
 	result := s.db.WithContext(ctx).Model(&models.ServiceChallengeSetting{}).
-		Where("service_id = ? AND `type` = ?", serviceID, challengeType).Updates(updates)
+		Where("service_id = ? AND \"type\" = ?", serviceID, challengeType).Updates(updates)
 	if result.Error != nil {
 		return fmt.Errorf("更新 Challenge 配置失败: %w", result.Error)
 	}
@@ -679,7 +679,7 @@ func (s *ProvisionService) UpdateServiceChallengeSetting(ctx context.Context, se
 // DeleteServiceChallengeSetting 删除服务 Challenge 配置
 func (s *ProvisionService) DeleteServiceChallengeSetting(ctx context.Context, serviceID, challengeType string) error {
 	result := s.db.WithContext(ctx).
-		Where("service_id = ? AND `type` = ?", serviceID, challengeType).
+		Where("service_id = ? AND \"type\" = ?", serviceID, challengeType).
 		Delete(&models.ServiceChallengeSetting{})
 	if result.Error != nil {
 		return fmt.Errorf("删除 Challenge 配置失败: %w", result.Error)

@@ -233,7 +233,7 @@ func (s *KeyService) DeleteIDPKey(ctx context.Context, idpType, tAppID string) e
 func (s *KeyService) ResolveIDPKey(ctx context.Context, appID, idpType string) (tAppID, tSecret string, err error) {
 	var appCfg models.ApplicationIDPConfig
 	if findErr := s.db.WithContext(ctx).
-		Where("app_id = ? AND `type` = ?", appID, idpType).
+		Where("app_id = ? AND \"type\" = ?", appID, idpType).
 		First(&appCfg).Error; findErr != nil {
 		return "", "", fmt.Errorf("应用 IDP 配置不存在: %w", findErr)
 	}
