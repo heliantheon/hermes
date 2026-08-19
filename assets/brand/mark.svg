@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-labelledby="hermes-title">
+  <title id="hermes-title">Hermes mark</title>
+  <g fill="none" stroke="#B94E20" stroke-width="16" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M40 132c22-58 76-92 138-76"/>
+  <path d="M216 116c-14 58-66 96-128 84"/>
+  <path d="M48 144h84l-28 24H64"/>
+  <path d="M66 116h86l-26 22H54"/>
+  <path d="M160 72l22-16 22 16"/>
+  <circle cx="40" cy="132" r="10" fill="#B94E20" stroke="none"/>
+  <circle cx="178" cy="56" r="10" fill="#B94E20" stroke="none"/>
+  <circle cx="216" cy="116" r="10" fill="#B94E20" stroke="none"/>
+  </g>
+</svg>

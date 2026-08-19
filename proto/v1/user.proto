@@ -1,0 +1,263 @@
+syntax = "proto3";
+
+package hermes.v1;
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+import "v1/common.proto";
+
+
+// UserService 用户 + 身份 + 凭证（TOTP/WebAuthn）+ MFA + 密码认证 + 用户组
+service UserService {
+  // ---- 用户查询 ----
+
+  rpc GetByOpenID(OpenIDRequest) returns (User);
+  rpc GetByIdentity(GetByIdentityRequest) returns (User);
+  rpc GetByEmail(GetByEmailRequest) returns (DecryptedUser);
+  rpc GetByPhonePlain(GetByPhonePlainRequest) returns (DecryptedUser);
+  rpc GetDecryptedUser(OpenIDRequest) returns (DecryptedUser);
+  rpc GetDecryptedUserByIdentity(GetByIdentityRequest) returns (DecryptedUser);
+
+  // ---- 用户写入 ----
+
+  rpc CreateUser(CreateUserRequest) returns (DecryptedUser);
+  rpc PatchUser(PatchUserRequest) returns (User);
+
+  // ---- 身份管理 ----
+
+  rpc GetIdentities(OpenIDRequest) returns (IdentityList);
+  rpc GetIdentitiesByIdentity(GetByIdentityRequest) returns (IdentityList);
+  rpc GetIdentityByType(GetIdentityByTypeRequest) returns (UserIdentity);
+  rpc AddIdentity(AddIdentityRequest) returns (google.protobuf.Empty);
+
+  // ---- 密码认证（PasswordStore） ----
+
+  rpc GetPasswordCredential(GetPasswordCredentialRequest) returns (PasswordStoreCredential);
+
+  // ---- 凭证通用 ----
+
+  rpc CreateCredential(CreateCredentialRequest) returns (google.protobuf.Empty);
+  rpc GetCredentialByID(CredentialIDRequest) returns (UserCredential);
+  rpc GetUserCredentials(OpenIDRequest) returns (UserCredentialList);
+  rpc GetUserCredentialsByType(GetCredentialsByTypeRequest) returns (UserCredentialList);
+  rpc PatchCredential(PatchCredentialRequest) returns (google.protobuf.Empty);
+  rpc DeleteCredential(DeleteCredentialRequest) returns (google.protobuf.Empty);
+  rpc DeleteUserCredentialsByType(GetCredentialsByTypeRequest) returns (google.protobuf.Empty);
+  rpc GetOpenIDByCredentialID(CredentialIDRequest) returns (OpenIDResponse);
+
+  // ---- Group ----
+
+  rpc CreateGroup(CreateGroupRequest) returns (Group);
+  rpc GetGroup(GetGroupRequest) returns (Group);
+  rpc ListGroups(ListGroupsRequest) returns (GroupList);
+  rpc UpdateGroup(UpdateGroupRequest) returns (Group);
+  rpc DeleteGroup(GetGroupRequest) returns (google.protobuf.Empty);
+  rpc SetGroupMembers(SetGroupMembersRequest) returns (google.protobuf.Empty);
+  rpc GetGroupMembers(GetGroupRequest) returns (StringList);
+}
+
+// ==================== User ====================
+
+message User {
+  uint32 id = 1;
+  string openid = 2;
+  int32 status = 3;
+  optional string nickname = 4;
+  optional string picture = 5;
+  optional string email = 6;
+  bool email_verified = 7;
+  optional google.protobuf.Timestamp last_login_at = 8;
+  google.protobuf.Timestamp created_at = 9;
+  google.protobuf.Timestamp updated_at = 10;
+  optional string password_hash = 11;
+}
+
+// DecryptedUser 解密后的用户（含明文手机号）
+message DecryptedUser {
+  User user = 1;
+  string phone = 2;
+}
+
+message GetByIdentityRequest {
+  string domain = 1;
+  string idp = 2;
+  string t_openid = 3;
+}
+
+message GetByEmailRequest {
+  string email = 1;
+}
+
+message GetByPhonePlainRequest {
+  string phone = 1;
+}
+
+message CreateUserRequest {
+  UserIdentity identity = 1;
+  optional TUserInfo user_info = 2;
+}
+
+message TUserInfo {
+  string t_openid = 1;
+  optional string nickname = 2;
+  optional string email = 3;
+  optional string phone = 4;
+  optional string picture = 5;
+  optional string raw_data = 6;
+}
+
+message PatchUserRequest {
+  string openid = 1;
+  optional string nickname = 2;
+  optional string picture = 3;
+  optional string email = 4;
+  optional int32 status = 5;
+  optional string password_hash = 6;
+  optional google.protobuf.Timestamp last_login_at = 7;
+  optional string phone = 8;
+}
+
+// ==================== Identity ====================
+
+message UserIdentity {
+  uint32 id = 1;
+  string domain = 2;
+  string openid = 3; // 用户的 openid（对应 Go 模型中的 uid 字段）
+  string idp = 4;
+  string t_openid = 5;
+  optional string raw_data = 6;
+  google.protobuf.Timestamp created_at = 7;
+  google.protobuf.Timestamp updated_at = 8;
+}
+
+message IdentityList {
+  repeated UserIdentity identities = 1;
+}
+
+message GetIdentityByTypeRequest {
+  string domain = 1;
+  string openid = 2;
+  string idp_type = 3;
+}
+
+message AddIdentityRequest {
+  string domain = 1;
+  string openid = 2;
+  string idp = 3;
+  string t_openid = 4;
+  optional string raw_data = 5;
+}
+
+// ==================== Password Store ====================
+
+message GetPasswordCredentialRequest {
+  string idp = 1;
+  string identifier = 2;
+}
+
+message PasswordStoreCredential {
+  string openid = 1;
+  string password_hash = 2;
+  optional string nickname = 3;
+  optional string email = 4;
+  optional string picture = 5;
+  int32 status = 6;
+}
+
+// ==================== Credential ====================
+
+message CredentialIDRequest {
+  string credential_id = 1;
+}
+
+message UserCredential {
+  uint32 id = 1;
+  string openid = 2;
+  optional string credential_id = 3;
+  string type = 4;
+  bool enabled = 5;
+  optional google.protobuf.Timestamp last_used_at = 6;
+  google.protobuf.Timestamp created_at = 7;
+  google.protobuf.Timestamp updated_at = 8;
+  string secret = 9; // 加密后的密文（gRPC 内部传输，不暴露给前端）
+  string label = 10;
+}
+
+message UserCredentialList {
+  repeated UserCredential credentials = 1;
+}
+
+message CreateCredentialRequest {
+  string openid = 1;
+  optional string credential_id = 2;
+  string type = 3;
+  string secret = 4;
+  string label = 5;
+}
+
+message GetCredentialsByTypeRequest {
+  string openid = 1;
+  string type = 2;
+}
+
+message PatchCredentialRequest {
+  string credential_id = 1;
+  optional string secret = 2;
+  optional google.protobuf.Timestamp last_used_at = 3;
+  optional string label = 4;
+  optional bool enabled = 5;
+  optional uint32 sign_count = 6;
+}
+
+message DeleteCredentialRequest {
+  string openid = 1;
+  string credential_id = 2;
+}
+
+message OpenIDResponse {
+  string openid = 1;
+}
+
+// ==================== Group ====================
+
+message Group {
+  uint32 id = 1;
+  string group_id = 2;
+  string service_id = 3;
+  string name = 4;
+  optional string description = 5;
+  google.protobuf.Timestamp created_at = 6;
+  google.protobuf.Timestamp updated_at = 7;
+}
+
+message GroupList {
+  repeated Group groups = 1;
+  string next_cursor = 2;
+}
+
+message GetGroupRequest {
+  string group_id = 1;
+}
+
+message CreateGroupRequest {
+  string group_id = 1;
+  string service_id = 2;
+  string name = 3;
+  optional string description = 4;
+}
+
+message UpdateGroupRequest {
+  string group_id = 1;
+  optional string name = 2;
+  optional string description = 3;
+}
+
+message ListGroupsRequest {
+  string filter = 1;
+  Pagination pagination = 2;
+}
+
+message SetGroupMembersRequest {
+  string group_id = 1;
+  repeated string user_ids = 2;
+}

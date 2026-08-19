@@ -11,8 +11,8 @@ import (
 	"github.com/heliantheon/common/patch"
 	hermes "github.com/heliantheon/hermes/internal"
 	"github.com/heliantheon/hermes/internal/dto"
+	hermesv1 "github.com/heliantheon/hermes/internal/grpc/v1"
 	"github.com/heliantheon/hermes/internal/models"
-	hermesv1 "github.com/heliantheon/proto/gen/proto/hermes/v1"
 )
 
 type resourceServiceServer struct {

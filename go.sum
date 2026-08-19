@@ -62,8 +62,6 @@ github.com/heliantheon/aegis-go/utilities v0.0.2-0.20260810161529-b6105ce3299f h
 github.com/heliantheon/aegis-go/utilities v0.0.2-0.20260810161529-b6105ce3299f/go.mod h1:BNzqSbsD2qI8tMliDrPCHaNuGWUzkYqmgcEBR6oK6JA=
 github.com/heliantheon/common v0.0.0-20260810161551-3c268cf22a19 h1:7U30wPyRaDTzkb+tjJbzmAjpQ1v5MPHw2y++RisH0lM=
 github.com/heliantheon/common v0.0.0-20260810161551-3c268cf22a19/go.mod h1:uDDXZvInD82oJ+NFTx6mGwrC/kE38NHdtD7M9yl4Xjs=
-github.com/heliantheon/proto v0.0.0-20260810161524-2a92df7e5115 h1:B1y9x4rXdN+hpUcpi/5SBf78NjS++fJtqIjPggDL/Nw=
-github.com/heliantheon/proto v0.0.0-20260810161524-2a92df7e5115/go.mod h1:bOjygba/IufeS+GjJcG1BMCrJyn0jAYoSkIH+A6wJ18=
 github.com/jinzhu/inflection v1.0.0 h1:K317FqzuhWc8YvSVlFMCCUb36O/S9MCKRDI7QkRKD/E=
 github.com/jinzhu/inflection v1.0.0/go.mod h1:h+uFLlag+Qp1Va5pdKtLDYj+kHp5pxUVkryuEj+Srlc=
 github.com/jinzhu/now v1.1.5 h1:/o9tlHleP7gOFmsnYNz3RGnqzefHA47wQpKrrdTIwXQ=

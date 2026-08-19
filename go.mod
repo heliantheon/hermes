@@ -8,7 +8,6 @@ require (
 	github.com/heliantheon/aegis-go/guard v0.0.2-0.20260810161529-b6105ce3299f
 	github.com/heliantheon/aegis-go/utilities v0.0.2-0.20260810161529-b6105ce3299f
 	github.com/heliantheon/common v0.0.0-20260810161551-3c268cf22a19
-	github.com/heliantheon/proto v0.0.0-20260810161524-2a92df7e5115
 	google.golang.org/grpc v1.79.2
 	google.golang.org/protobuf v1.36.11
 	gorm.io/gorm v1.30.0
