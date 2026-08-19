@@ -53,7 +53,7 @@ type ServiceChallengeSetting struct {
 	ServiceID string     `gorm:"column:service_id;size:32;not null;index" json:"service_id"`
 	Type      string     `gorm:"column:type;size:64;not null" json:"type"`
 	ExpiresIn uint       `gorm:"column:expires_in;not null;default:300" json:"expires_in"`
-	Limits    RateLimits `gorm:"column:limits;serializer:json" json:"limits"`
+	Limits    RateLimits `gorm:"column:limits;type:jsonb;serializer:json" json:"limits"`
 	CreatedAt time.Time  `gorm:"column:created_at;not null" json:"created_at"`
 	UpdatedAt time.Time  `gorm:"column:updated_at;not null" json:"updated_at"`
 }

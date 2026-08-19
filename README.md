@@ -17,7 +17,7 @@ Hermes 统一维护 Helios 的身份、应用、服务、域、凭证、用户�
 
 ## Run locally
 
-Hermes needs MySQL:
+Hermes needs PostgreSQL:
 
 ```bash
 cp example.toml config.toml
