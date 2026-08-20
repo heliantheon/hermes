@@ -1,41 +1,34 @@
 <p align="center">
-  <img src="./assets/brand/hero-ice.png" width="256" alt="Hermes emblem suspended in a clear ice block" />
+  <img src="./assets/brand/hero-ice.png" width="256" alt="Hermes logo" />
 </p>
 
 <h1 align="center">Hermes</h1>
 
-<p align="center">
-  <strong>Identity, provisioning, and relationship data for Helios.</strong><br />
-  Helios 的身份、资源配置与关系数据服务。
-</p>
+Hermes 是 Helios 里负责"数据"的那个服务：身份、应用、服务、域、凭证、用户组，以及它们之间的授权关系，都统一在这里维护。对外它开两套接口——给管理流程用的 HTTP API，和给 Aegis 用的 gRPC API。协议契约本身也归这个仓库所有。
 
-## Overview / 项目简介
+Hermes owns Helios' identity, application, service, domain, credential, group, and relationship data. It exposes HTTP APIs for management workflows and gRPC APIs consumed by Aegis, and it owns the language-neutral protocol contract itself.
 
-Hermes owns identity, application, service, domain, credential, group, and relationship data. It exposes HTTP APIs for management workflows and gRPC APIs consumed by Aegis.
+## 本地运行
 
-Hermes 统一维护 Helios 的身份、应用、服务、域、凭证、用户组和授权关系数据，并直接拥有对应的语言无关 Protobuf Schema。
-
-## Run locally
-
-Hermes needs PostgreSQL:
+需要 PostgreSQL：
 
 ```bash
 cp example.toml config.toml
 make run
 ```
 
-The schema and migrations are under [`sql/`](sql/). Deployment-specific seed data is not stored in this repository.
+schema 和迁移在 [`sql/`](sql/) 目录下。部署相关的种子数据不进这个仓库。
 
-## Protocol Schema
+## 协议 Schema
 
-The public contract lives in `proto/v1` and keeps the Protobuf package `hermes.v1`. Schema versions use independent tags such as `schema/v1.0.0`.
+公共契约放在 `proto/v1`，Protobuf 包名是 `hermes.v1`。Schema 的版本用独立标签（如 `schema/v1.0.0`）发布，和代码版本解耦。
 
 ```text
-proto/v1/*.proto          public, language-neutral Schema
-internal/grpc/v1/*.pb.go  private Go server bindings
+proto/v1/*.proto          公开的、语言无关的 Schema
+internal/grpc/v1/*.pb.go  私有的 Go 服务端绑定
 ```
 
-Generate and verify the committed server bindings with:
+生成并校验已提交的服务端绑定：
 
 ```bash
 make proto-lint
@@ -43,7 +36,7 @@ make generate
 make check-generate
 ```
 
-Consumers generate their own bindings from the public Git repository and a fixed Schema tag; they do not import a Hermes Go API module.
+消费方拿一份公开仓库 + 固定 Schema 标签，自己去生成绑定，而不是引入 Hermes 的 Go API module：
 
 ```yaml
 inputs:
@@ -52,7 +45,7 @@ inputs:
     subdir: proto
 ```
 
-## Development
+## 开发
 
 ```bash
 make test
